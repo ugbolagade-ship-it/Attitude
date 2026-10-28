@@ -5,62 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attitude Phones - Nigeria's #1 Gadget Store</title>
     <meta name="description" content="Shop the latest phones, laptops, tablets, gadgets, and accessories at Attitude Phones Nigeria. Best prices, genuine products, fast delivery nationwide.">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        * {
+        body {
             font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
         }
-
         :root {
-            --attitude-primary: #ee0000;
-            --attitude-dark: #1a1a1a;
+            --attitude-primary: #bb0808; /* A deep, modern red */
+            --attitude-dark: #20262b;
         }
-
         .text-attitude { color: var(--attitude-primary); }
         .bg-attitude { background-color: var(--attitude-primary); }
         .border-attitude { border-color: var(--attitude-primary); }
-
-        .hero-slider {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-slide {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .hero-slide.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .hover\:bg-attitude:hover { background-color: var(--attitude-primary); }
+        .hover\:text-attitude:hover { color: var(--attitude-primary); }
 
         .product-card:hover .hover-actions {
-            max-height: 50px;
+            transform: translateY(0);
             opacity: 1;
         }
-
         .hover-actions {
-            max-height: 0;
+            transform: translateY(10px);
             opacity: 0;
-            overflow: hidden;
             transition: all 0.3s ease;
         }
-
         .line-clamp-2 {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
@@ -68,96 +54,70 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        .mobile-bottom-nav {
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        }
-
-        .flash-sale-badge {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .accordion-content {
-            max-height: 0;
+        
+        /* Hero Slider Styles */
+        .hero-slider {
+            position: relative;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+        }
+        .hero-slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .hero-slide.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Flash Sale Countdown */
+        .countdown-box {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
         }
 
-        .accordion-content.open {
-            max-height: 200px;
-        }
-
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-icon.rotate {
-            transform: rotate(180deg);
-        }
-
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .toast {
+        /* Toast Notification */
+        #toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 9999;
         }
-
-        .toast.show {
+        #toast.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
-
-        .cart-badge {
-            animation: bounce 0.3s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message">Item added to cart!</span>
-    </div>
+<body class="text-gray-800">
 
     <!-- Top Bar -->
-    <div class="bg-attitude text-white text-xs py-2 hidden lg:block">
+    <div class="bg-[--attitude-dark] text-white text-xs py-2 hidden lg:block">
         <div class="container mx-auto max-w-7xl px-4 flex justify-between items-center">
-            <p><i class="fas fa-phone mr-2"></i>Welcome to Attitude Phones - Call us: 0700-ATTITUDE</p>
+            <p>Welcome to Attitude Phones — Nigeria's #1 Gadget Store</p>
             <div class="flex items-center gap-4">
-                <a href="#" class="hover:text-gray-300 transition"><i class="fas fa-map-marker-alt mr-1"></i>Store Locator</a>
-                <a href="#" class="hover:text-gray-300 transition"><i class="fas fa-truck mr-1"></i>Track Order</a>
+                <a href="#" class="hover:text-gray-300 transition">Store Locator</a>
+                <a href="#" class="hover:text-gray-300 transition">Track Order</a>
+                <a href="#" class="hover:text-gray-300 transition">Help</a>
             </div>
         </div>
     </div>
 
     <!-- Main Header -->
-    <header class="sticky-header bg-white shadow-md">
+    <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="container mx-auto max-w-7xl px-4">
             <!-- Desktop Header -->
             <div class="hidden lg:flex items-center justify-between py-4 gap-6">
                 <!-- Logo -->
                 <a href="#" class="flex-shrink-0 flex items-center gap-2">
-                    <div class="w-10 h-10 bg-attitude rounded-lg flex items-center justify-center">
+                     <div class="w-10 h-10 bg-attitude rounded-lg flex items-center justify-center">
                         <i class="fas fa-mobile-alt text-white text-xl"></i>
                     </div>
                     <div>
@@ -168,10 +128,10 @@
 
                 <!-- Search Bar -->
                 <div class="flex-1 max-w-2xl">
-                    <form onsubmit="handleSearch(event)">
+                    <form>
                         <div class="flex items-center border-2 border-attitude rounded-full overflow-hidden bg-white">
                             <i class="fas fa-search pl-4 text-gray-400"></i>
-                            <input type="search" id="search-input" placeholder="Search for phones, laptops, accessories..." class="flex-1 px-3 py-3 text-sm outline-none bg-transparent">
+                            <input type="search" placeholder="Search for phones, laptops, accessories..." class="flex-1 px-3 py-2.5 text-sm outline-none bg-transparent">
                             <button type="submit" class="bg-attitude px-6 py-3 text-white hover:bg-red-700 transition font-semibold">
                                 Search
                             </button>
@@ -182,24 +142,24 @@
                 <!-- Header Icons -->
                 <div class="flex items-center gap-6">
                     <a href="#" class="flex flex-col items-center text-gray-600 hover:text-attitude transition group">
-                        <i class="fas fa-user text-xl group-hover:scale-110 transition"></i>
+                        <i class="far fa-user text-xl group-hover:scale-110 transition"></i>
                         <span class="text-xs mt-1">Account</span>
                     </a>
                     <a href="#" class="flex flex-col items-center text-gray-600 hover:text-attitude transition group">
-                        <i class="fas fa-heart text-xl group-hover:scale-110 transition"></i>
+                        <i class="far fa-heart text-xl group-hover:scale-110 transition"></i>
                         <span class="text-xs mt-1">Wishlist</span>
                     </a>
-                    <a href="#" class="flex flex-col items-center text-gray-600 hover:text-attitude transition group relative" onclick="toggleCart(event)">
+                    <a href="#" class="flex flex-col items-center text-gray-600 hover:text-attitude transition group relative">
                         <i class="fas fa-shopping-cart text-xl group-hover:scale-110 transition"></i>
                         <span class="text-xs mt-1">Cart</span>
-                        <span id="cart-count" class="cart-badge absolute -top-1 -right-2 bg-attitude text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-attitude text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                     </a>
                 </div>
             </div>
 
             <!-- Mobile Header -->
             <div class="lg:hidden flex items-center justify-between py-3 gap-3">
-                <button onclick="toggleMobileMenu()" class="text-gray-600 text-xl">
+                <button class="text-gray-600 text-xl">
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="#" class="flex items-center gap-1">
@@ -209,7 +169,7 @@
                     <span class="text-lg font-bold"><span class="text-gray-900">Attitude</span><span class="text-attitude">Phones</span></span>
                 </a>
                 <div class="flex items-center gap-3">
-                    <a href="#" class="text-gray-600 relative" onclick="toggleCart(event)">
+                     <a href="#" class="text-gray-600 relative">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span id="cart-count-mobile" class="absolute -top-1 -right-2 bg-attitude text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
                     </a>
@@ -218,7 +178,7 @@
 
             <!-- Mobile Search -->
             <div class="lg:hidden pb-3">
-                <form onsubmit="handleSearch(event)">
+                <form>
                     <div class="flex items-center border-2 border-attitude rounded-full overflow-hidden bg-white">
                         <i class="fas fa-search pl-4 text-gray-400"></i>
                         <input type="search" placeholder="Search products..." class="flex-1 px-3 py-2 text-sm outline-none bg-transparent">
@@ -231,160 +191,70 @@
         </div>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden lg:block bg-attitude">
-            <div class="container mx-auto max-w-7xl px-4 flex h-11 items-center gap-1">
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Home</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Phones</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Laptops</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Tablets</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Accessories</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Smart Watches</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Audio</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">Power Banks</a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-yellow-300 hover:bg-white/10 transition">
-                    <i class="fas fa-fire mr-1"></i>Deals
+        <nav class="hidden lg:block bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto max-w-7xl px-4 flex h-12 items-center gap-2">
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Home</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Phones</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Laptops</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Tablets</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Accessories</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Smart Watches</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">Audio</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-attitude transition-colors border-b-2 border-attitude">
+                    <i class="fas fa-fire mr-1"></i>Hot Deals
                 </a>
-                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-white hover:bg-white/10 transition">About Us</a>
+                <a href="#" class="px-4 h-full flex items-center text-sm font-semibold text-gray-700 hover:text-attitude transition-colors border-b-2 border-transparent hover:border-attitude">About Us</a>
             </div>
         </nav>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/50" onclick="toggleMobileMenu()"></div>
-        <div class="absolute left-0 top-0 bottom-0 w-80 bg-white shadow-xl transform -translate-x-full transition-transform duration-300" id="mobile-menu-panel">
-            <div class="p-4 border-b flex items-center justify-between">
-                <span class="font-bold text-lg">Menu</span>
-                <button onclick="toggleMobileMenu()" class="text-gray-500 text-xl">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <nav class="p-4">
-                <ul class="space-y-1">
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-home text-attitude w-5"></i>Home</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-mobile-alt text-attitude w-5"></i>Phones</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-laptop text-attitude w-5"></i>Laptops</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-tablet-alt text-attitude w-5"></i>Tablets</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-headphones text-attitude w-5"></i>Accessories</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-clock text-attitude w-5"></i>Smart Watches</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition"><i class="fas fa-battery-full text-attitude w-5"></i>Power Banks</a></li>
-                    <li><a href="#" class="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition text-yellow-600"><i class="fas fa-fire w-5"></i>Hot Deals</a></li>
-                </ul>
-            </nav>
-            <div class="p-4 border-t mt-4">
-                <a href="#" class="flex items-center gap-3 py-2 text-gray-600"><i class="fas fa-user w-5"></i>My Account</a>
-                <a href="#" class="flex items-center gap-3 py-2 text-gray-600"><i class="fas fa-heart w-5"></i>Wishlist</a>
-                <a href="#" class="flex items-center gap-3 py-2 text-gray-600"><i class="fas fa-map-marker-alt w-5"></i>Store Locator</a>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
-    <main class="pb-20 lg:pb-0">
-        <!-- Hero Slider -->
-        <section class="hero-slider bg-gray-200">
-            <div class="relative aspect-[16/7] md:aspect-[16/5] w-full max-w-7xl mx-auto overflow-hidden">
+    <main class="container mx-auto max-w-7xl px-4 py-8">
+        
+        <!-- Hero Section -->
+        <section class="hero-slider bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+            <div class="relative aspect-[16/7] md:aspect-[16/5] w-full">
                 <!-- Slide 1 -->
                 <div class="hero-slide active h-full">
                     <div class="relative h-full bg-gradient-to-r from-gray-900 to-gray-700 flex items-center">
-                        <div class="absolute inset-0 opacity-30">
-                            <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=1200&h=500&fit=crop" alt="iPhone" class="w-full h-full object-cover">
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=1600&h=600&fit=crop" alt="iPhone" class="absolute inset-0 w-full h-full object-cover opacity-20">
                         <div class="relative z-10 px-6 md:px-16">
-                            <span class="bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-full">LIMITED TIME OFFER</span>
+                            <span class="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full">LIMITED TIME OFFER</span>
                             <h1 class="text-3xl md:text-5xl font-bold text-white mt-4">iPhone 15 Pro Max</h1>
                             <p class="text-gray-300 text-lg md:text-xl mt-2">Titanium. So strong. So light. So Pro.</p>
                             <p class="text-2xl md:text-3xl font-bold text-yellow-400 mt-3">From ₦1,050,000</p>
-                            <a href="#" class="inline-block mt-4 bg-attitude text-white font-bold px-8 py-3 rounded-full hover:bg-red-700 transition">
+                            <a href="#" class="inline-block mt-6 bg-attitude text-white font-bold px-8 py-3 rounded-full hover:bg-red-700 transition">
                                 Shop Now <i class="fas fa-arrow-right ml-2"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-
                 <!-- Slide 2 -->
                 <div class="hero-slide h-full">
-                    <div class="relative h-full bg-gradient-to-r from-blue-900 to-purple-900 flex items-center">
-                        <div class="absolute inset-0 opacity-30">
-                            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&h=500&fit=crop" alt="MacBook" class="w-full h-full object-cover">
-                        </div>
+                     <div class="relative h-full bg-gradient-to-r from-blue-900 to-purple-900 flex items-center">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1600&h=600&fit=crop" alt="MacBook" class="absolute inset-0 w-full h-full object-cover opacity-20">
                         <div class="relative z-10 px-6 md:px-16">
                             <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW ARRIVAL</span>
                             <h1 class="text-3xl md:text-5xl font-bold text-white mt-4">MacBook Air M3</h1>
                             <p class="text-gray-300 text-lg md:text-xl mt-2">Supercharged by M3 chip. Stunningly thin.</p>
                             <p class="text-2xl md:text-3xl font-bold text-green-400 mt-3">Starting at ₦1,200,000</p>
-                            <a href="#" class="inline-block mt-4 bg-white text-gray-900 font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition">
+                            <a href="#" class="inline-block mt-6 bg-white text-gray-900 font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition">
                                 Explore <i class="fas fa-arrow-right ml-2"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Slide 3 -->
-                <div class="hero-slide h-full">
-                    <div class="relative h-full bg-gradient-to-r from-red-900 to-orange-900 flex items-center">
-                        <div class="absolute inset-0 opacity-30">
-                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=1200&h=500&fit=crop" alt="Smart Watch" class="w-full h-full object-cover">
-                        </div>
-                        <div class="relative z-10 px-6 md:px-16">
-                            <span class="bg-attitude text-white text-xs font-bold px-3 py-1 rounded-full">FLASH SALE - 40% OFF</span>
-                            <h1 class="text-3xl md:text-5xl font-bold text-white mt-4">Samsung Galaxy Watch 7</h1>
-                            <p class="text-gray-300 text-lg md:text-xl mt-2">Your health companion. Now at unbeatable price.</p>
-                            <p class="text-2xl md:text-3xl font-bold text-orange-400 mt-3"><span class="line-through text-gray-400 text-lg">₦350,000</span> ₦210,000</p>
-                            <a href="#" class="inline-block mt-4 bg-white text-gray-900 font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition">
-                                Grab Deal <i class="fas fa-bolt ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Navigation Dots -->
                 <div class="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
-                    <button onclick="goToSlide(0)" class="slider-dot h-2.5 w-8 rounded-full bg-white transition-all"></button>
-                    <button onclick="goToSlide(1)" class="slider-dot h-2.5 w-2.5 rounded-full bg-white/50 hover:bg-white/80 transition-all"></button>
-                    <button onclick="goToSlide(2)" class="slider-dot h-2.5 w-2.5 rounded-full bg-white/50 hover:bg-white/80 transition-all"></button>
-                </div>
-
-                <!-- Navigation Arrows -->
-                <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </section>
-
-        <!-- Promo Bar -->
-        <section class="bg-white py-4 border-b">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="flex flex-wrap items-center justify-center gap-4 text-sm">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-truck text-attitude text-lg"></i>
-                        <span>Free Delivery on orders above ₦50,000</span>
-                    </div>
-                    <div class="hidden md:block w-px h-6 bg-gray-300"></div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-shield-alt text-attitude text-lg"></i>
-                        <span>100% Original Products</span>
-                    </div>
-                    <div class="hidden md:block w-px h-6 bg-gray-300"></div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-undo text-attitude text-lg"></i>
-                        <span>7-Day Return Policy</span>
-                    </div>
-                    <div class="hidden md:block w-px h-6 bg-gray-300"></div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-headset text-attitude text-lg"></i>
-                        <span>24/7 Customer Support</span>
-                    </div>
+                    <button class="slider-dot h-2.5 w-8 rounded-full bg-white transition-all"></button>
+                    <button class="slider-dot h-2.5 w-2.5 rounded-full bg-white/50 hover:bg-white/80 transition-all"></button>
                 </div>
             </div>
         </section>
 
         <!-- Category Quick Links -->
-        <section class="py-6 bg-white">
-            <div class="container mx-auto max-w-7xl px-4">
+        <section class="py-6 bg-white rounded-xl shadow-sm mb-8">
+            <div class="container mx-auto px-4">
                 <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
                     <a href="#" class="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition group">
                         <div class="w-14 h-14 md:w-16 md:h-16 bg-red-50 rounded-full flex items-center justify-center group-hover:bg-red-100 transition">
@@ -438,40 +308,232 @@
             </div>
         </section>
 
+        <!-- Trending Products -->
+        <section class="py-8 bg-white rounded-xl shadow-sm mb-8">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Trending Now</h2>
+                        <p class="text-gray-500 text-sm mt-1">Most popular products this week</p>
+                    </div>
+                    <a href="#" class="text-attitude font-semibold text-sm hover:underline flex items-center gap-1">
+                        View All <i class="fas fa-chevron-right text-xs"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                    <!-- Product Card Template -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop" alt="iPhone 15 Pro Max" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">In Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('iPhone 15 Pro Max')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple iPhone 15 Pro Max 256GB - Natural Titanium</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(128)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦1,050,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop" alt="Samsung Galaxy S24 Ultra" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">In Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('Samsung Galaxy S24 Ultra')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Samsung Galaxy S24 Ultra 512GB - Titanium Black</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(95)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦1,800,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop" alt="MacBook Air" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">In Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('MacBook Air M3')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple MacBook Air M3 13" 8GB/256GB - Midnight</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(67)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦1,200,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                         <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=400&fit=crop" alt="AirPods Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-orange-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">Low Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('AirPods Pro 2')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple AirPods Pro 2nd Generation with MagSafe Case</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(234)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦280,000</span>
+                                <span class="text-sm text-gray-400 line-through">₦350,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <!-- Product Card 5 -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                        <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&fit=crop" alt="Apple Watch" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">In Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('Apple Watch Series 9')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple Watch Series 9 GPS 45mm - Midnight</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(89)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦450,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 -->
+                    <div class="product-card group bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300">
+                         <div class="relative">
+                            <a href="#" class="block">
+                                <div class="relative aspect-square bg-gray-50 p-4">
+                                    <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=400&fit=crop" alt="Anker Power Bank" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                </div>
+                            </a>
+                             <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-1 rounded-full">In Stock</span>
+                             <div class="absolute bottom-0 left-0 right-0 p-2 flex justify-center gap-2 hover-actions">
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="far fa-heart"></i></button>
+                                <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-eye"></i></button>
+                                <button onclick="addToCart('Anker Power Bank')" class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-attitude hover:text-white transition"><i class="fas fa-shopping-cart"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Anker PowerCore 20000mAh 20W Power Bank</a>
+                            <div class="flex items-center gap-1 mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-xs text-gray-400">(312)</span>
+                            </div>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-lg font-bold text-attitude">₦35,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Flash Sale Section -->
-        <section class="py-8 bg-gradient-to-r from-red-600 to-orange-500">
-            <div class="container mx-auto max-w-7xl px-4">
+        <section class="py-8 bg-gradient-to-r from-red-600 to-orange-500 rounded-xl shadow-lg mb-8">
+            <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center gap-4">
                         <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
-                            <i class="fas fa-bolt flash-sale-badge text-yellow-300"></i>
+                            <i class="fas fa-bolt text-yellow-300"></i>
                             Flash Sale
                         </h2>
                         <div class="hidden md:flex items-center gap-2 bg-white/20 rounded-full px-4 py-1">
                             <span class="text-white text-sm">Ends in:</span>
                             <div class="flex gap-1">
-                                <span id="hours" class="bg-white text-red-600 font-bold px-2 py-1 rounded text-sm">12</span>
+                                <span id="hours" class="countdown-box text-white text-sm">12</span>
                                 <span class="text-white">:</span>
-                                <span id="minutes" class="bg-white text-red-600 font-bold px-2 py-1 rounded text-sm">45</span>
+                                <span id="minutes" class="countdown-box text-white text-sm">45</span>
                                 <span class="text-white">:</span>
-                                <span id="seconds" class="bg-white text-red-600 font-bold px-2 py-1 rounded text-sm">30</span>
+                                <span id="seconds" class="countdown-box text-white text-sm">30</span>
                             </div>
                         </div>
                     </div>
                     <a href="#" class="text-white font-medium text-sm hover:underline">See All <i class="fas fa-chevron-right ml-1"></i></a>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                     <!-- Flash Sale Product 1 -->
-                    <div class="product-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="product-card group bg-white rounded-lg overflow-hidden">
                         <a href="#" class="block relative">
                             <div class="relative aspect-square bg-gray-50 p-4">
-                                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=300&h=300&fit=crop" alt="iPhone 15 Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop" alt="iPhone 15 Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 <span class="absolute top-2 left-2 bg-attitude text-white text-xs font-bold px-2 py-1 rounded-full">-30%</span>
                             </div>
                         </a>
                         <div class="p-3">
-                            <p class="text-sm font-medium text-gray-800 line-clamp-2">Apple iPhone 15 Pro 256GB</p>
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple iPhone 15 Pro 256GB</a>
                             <div class="flex items-baseline gap-2 mt-2">
                                 <span class="text-lg font-bold text-attitude">₦850,000</span>
                                 <span class="text-sm text-gray-400 line-through">₦1,200,000</span>
@@ -485,22 +547,22 @@
                                     <div class="bg-attitude h-1.5 rounded-full" style="width: 82%"></div>
                                 </div>
                             </div>
-                            <button onclick="addToCart('iPhone 15 Pro')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+                            <button onclick="addToCart('iPhone 15 Pro')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
                                 <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
                             </button>
                         </div>
                     </div>
 
                     <!-- Flash Sale Product 2 -->
-                    <div class="product-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="product-card group bg-white rounded-lg overflow-hidden">
                         <a href="#" class="block relative">
                             <div class="relative aspect-square bg-gray-50 p-4">
-                                <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300&h=300&fit=crop" alt="Samsung Galaxy" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop" alt="Samsung Galaxy" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 <span class="absolute top-2 left-2 bg-attitude text-white text-xs font-bold px-2 py-1 rounded-full">-25%</span>
                             </div>
                         </a>
                         <div class="p-3">
-                            <p class="text-sm font-medium text-gray-800 line-clamp-2">Samsung Galaxy S24 Ultra 512GB</p>
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Samsung Galaxy S24 Ultra 512GB</a>
                             <div class="flex items-baseline gap-2 mt-2">
                                 <span class="text-lg font-bold text-attitude">₦1,350,000</span>
                                 <span class="text-sm text-gray-400 line-through">₦1,800,000</span>
@@ -514,22 +576,22 @@
                                     <div class="bg-attitude h-1.5 rounded-full" style="width: 65%"></div>
                                 </div>
                             </div>
-                            <button onclick="addToCart('Samsung Galaxy S24 Ultra')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+                            <button onclick="addToCart('Samsung Galaxy S24 Ultra')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
                                 <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
                             </button>
                         </div>
                     </div>
 
                     <!-- Flash Sale Product 3 -->
-                    <div class="product-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="product-card group bg-white rounded-lg overflow-hidden">
                         <a href="#" class="block relative">
                             <div class="relative aspect-square bg-gray-50 p-4">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&h=300&fit=crop" alt="AirPods" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=400&fit=crop" alt="AirPods" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 <span class="absolute top-2 left-2 bg-attitude text-white text-xs font-bold px-2 py-1 rounded-full">-40%</span>
                             </div>
                         </a>
                         <div class="p-3">
-                            <p class="text-sm font-medium text-gray-800 line-clamp-2">Apple AirPods Pro 2nd Gen</p>
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Apple AirPods Pro 2nd Gen</a>
                             <div class="flex items-baseline gap-2 mt-2">
                                 <span class="text-lg font-bold text-attitude">₦180,000</span>
                                 <span class="text-sm text-gray-400 line-through">₦300,000</span>
@@ -543,22 +605,22 @@
                                     <div class="bg-attitude h-1.5 rounded-full" style="width: 95%"></div>
                                 </div>
                             </div>
-                            <button onclick="addToCart('AirPods Pro 2')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+                            <button onclick="addToCart('AirPods Pro 2')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
                                 <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
                             </button>
                         </div>
                     </div>
 
                     <!-- Flash Sale Product 4 -->
-                    <div class="product-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="product-card group bg-white rounded-lg overflow-hidden">
                         <a href="#" class="block relative">
                             <div class="relative aspect-square bg-gray-50 p-4">
-                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&h=300&fit=crop" alt="Smart Watch" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=400&fit=crop" alt="Smart Watch" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 <span class="absolute top-2 left-2 bg-attitude text-white text-xs font-bold px-2 py-1 rounded-full">-35%</span>
                             </div>
                         </a>
                         <div class="p-3">
-                            <p class="text-sm font-medium text-gray-800 line-clamp-2">Samsung Galaxy Watch 6 44mm</p>
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Samsung Galaxy Watch 6 44mm</a>
                             <div class="flex items-baseline gap-2 mt-2">
                                 <span class="text-lg font-bold text-attitude">₦195,000</span>
                                 <span class="text-sm text-gray-400 line-through">₦300,000</span>
@@ -572,22 +634,22 @@
                                     <div class="bg-attitude h-1.5 rounded-full" style="width: 88%"></div>
                                 </div>
                             </div>
-                            <button onclick="addToCart('Galaxy Watch 6')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+                            <button onclick="addToCart('Galaxy Watch 6')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
                                 <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
                             </button>
                         </div>
                     </div>
 
                     <!-- Flash Sale Product 5 -->
-                    <div class="product-card group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hidden sm:block">
+                    <div class="product-card group bg-white rounded-lg overflow-hidden hidden sm:block">
                         <a href="#" class="block relative">
                             <div class="relative aspect-square bg-gray-50 p-4">
-                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=300&h=300&fit=crop" alt="Power Bank" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400&h=400&fit=crop" alt="Power Bank" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
                                 <span class="absolute top-2 left-2 bg-attitude text-white text-xs font-bold px-2 py-1 rounded-full">-50%</span>
                             </div>
                         </a>
                         <div class="p-3">
-                            <p class="text-sm font-medium text-gray-800 line-clamp-2">Anker 20000mAh Power Bank</p>
+                            <a href="#" class="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-attitude transition">Anker 20000mAh Power Bank</a>
                             <div class="flex items-baseline gap-2 mt-2">
                                 <span class="text-lg font-bold text-attitude">₦25,000</span>
                                 <span class="text-sm text-gray-400 line-through">₦50,000</span>
@@ -601,486 +663,7 @@
                                     <div class="bg-attitude h-1.5 rounded-full" style="width: 98%"></div>
                                 </div>
                             </div>
-                            <button onclick="addToCart('Anker Power Bank')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trending Products -->
-        <section class="py-8 bg-white">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Trending Now</h2>
-                        <p class="text-gray-500 text-sm">Most popular products this week</p>
-                    </div>
-                    <a href="#" class="text-attitude font-medium text-sm hover:underline flex items-center gap-1">
-                        View All <i class="fas fa-chevron-right text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
-                    <!-- Product Card Template -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=300&h=300&fit=crop" alt="iPhone 15 Pro Max" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">In Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple iPhone 15 Pro Max 256GB - Natural Titanium</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(128)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦1,050,000</span>
-                            </div>
-                            <button onclick="addToCart('iPhone 15 Pro Max')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300&h=300&fit=crop" alt="Samsung Galaxy S24 Ultra" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">In Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Samsung Galaxy S24 Ultra 512GB - Titanium Black</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(95)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦1,800,000</span>
-                            </div>
-                            <button onclick="addToCart('Samsung Galaxy S24 Ultra')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop" alt="MacBook Air" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">In Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple MacBook Air M3 13" 8GB/256GB - Midnight</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(67)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦1,200,000</span>
-                            </div>
-                            <button onclick="addToCart('MacBook Air M3')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&h=300&fit=crop" alt="AirPods Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-orange-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">Low Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple AirPods Pro 2nd Generation with MagSafe Case</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(234)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦280,000</span>
-                                <span class="text-sm text-gray-400 line-through">₦350,000</span>
-                            </div>
-                            <button onclick="addToCart('AirPods Pro 2')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 5 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&h=300&fit=crop" alt="Apple Watch" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">In Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple Watch Series 9 GPS 45mm - Midnight</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(89)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦450,000</span>
-                            </div>
-                            <button onclick="addToCart('Apple Watch Series 9')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product Card 6 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 hidden xl:block">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=300&h=300&fit=crop" alt="Anker Power Bank" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 right-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">In Stock</span>
-                                <button onclick="toggleWishlist(event, this)" class="absolute top-2 left-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition">
-                                    <i class="far fa-heart text-gray-400 hover:text-attitude"></i>
-                                </button>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Anker PowerCore 20000mAh 20W Power Bank</a>
-                            <div class="flex items-center gap-1 mt-1">
-                                <div class="flex text-yellow-400 text-xs">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="text-xs text-gray-400">(312)</span>
-                            </div>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦35,000</span>
-                            </div>
                             <button onclick="addToCart('Anker Power Bank')" class="w-full mt-3 bg-gray-900 text-white text-sm font-semibold py-2 rounded-lg hover:bg-attitude transition">
-                                <i class="fas fa-cart-plus mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                        <div class="hover-actions">
-                            <div class="flex items-center justify-around border-t border-gray-100 py-2">
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-eye"></i>Quick View
-                                </button>
-                                <div class="w-px h-4 bg-gray-200"></div>
-                                <button class="flex items-center gap-1 text-xs text-gray-500 hover:text-attitude transition">
-                                    <i class="fas fa-exchange-alt"></i>Compare
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Banner Section -->
-        <section class="py-4 bg-white">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" class="relative rounded-xl overflow-hidden group h-40 md:h-52">
-                        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&h=300&fit=crop" alt="iPhone Banner" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
-                            <div class="p-6">
-                                <span class="text-yellow-400 text-xs font-bold">EXCLUSIVE DEAL</span>
-                                <h3 class="text-white text-xl md:text-2xl font-bold mt-1">iPhone 15 Series</h3>
-                                <p class="text-gray-300 text-sm mt-1">Up to 20% Off</p>
-                                <span class="inline-block mt-3 bg-white text-gray-900 text-sm font-semibold px-4 py-2 rounded-full group-hover:bg-attitude group-hover:text-white transition">Shop Now</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#" class="relative rounded-xl overflow-hidden group h-40 md:h-52">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=300&fit=crop" alt="MacBook Banner" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent flex items-center">
-                            <div class="p-6">
-                                <span class="text-green-400 text-xs font-bold">NEW ARRIVAL</span>
-                                <h3 class="text-white text-xl md:text-2xl font-bold mt-1">MacBook Air M3</h3>
-                                <p class="text-gray-300 text-sm mt-1">Starting at ₦1,200,000</p>
-                                <span class="inline-block mt-3 bg-white text-gray-900 text-sm font-semibold px-4 py-2 rounded-full group-hover:bg-attitude group-hover:text-white transition">Explore</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Brands Section -->
-        <section class="py-8 bg-gray-100">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">Shop by Brand</h2>
-                        <p class="text-gray-500 text-sm">Top brands at best prices</p>
-                    </div>
-                    <a href="#" class="text-attitude font-medium text-sm hover:underline flex items-center gap-1">
-                        All Brands <i class="fas fa-chevron-right text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Apple</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Samsung</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Tecno</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Infinix</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Xiaomi</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Oppo</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">HP</span>
-                    </a>
-                    <a href="#" class="bg-white rounded-xl p-4 flex items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="text-lg font-bold text-gray-800 group-hover:text-attitude transition">Lenovo</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- New Arrivals -->
-        <section class="py-8 bg-white">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-900">New Arrivals</h2>
-                        <p class="text-gray-500 text-sm">Latest gadgets just landed</p>
-                    </div>
-                    <a href="#" class="text-attitude font-medium text-sm hover:underline flex items-center gap-1">
-                        View All <i class="fas fa-chevron-right text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
-                    <!-- New Product 1 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=300&h=300&fit=crop" alt="iPhone 16 Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple iPhone 16 Pro 256GB - Desert Titanium</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦1,450,000</span>
-                            </div>
-                            <button onclick="addToCart('iPhone 16 Pro')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- New Product 2 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300&h=300&fit=crop" alt="Samsung S25" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Samsung Galaxy S25 Ultra 512GB - Titanium Silver</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦1,950,000</span>
-                            </div>
-                            <button onclick="addToCart('Samsung Galaxy S25 Ultra')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- New Product 3 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300&h=300&fit=crop" alt="Apple Watch Ultra" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple Watch Ultra 2 49mm - Titanium</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦850,000</span>
-                            </div>
-                            <button onclick="addToCart('Apple Watch Ultra 2')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- New Product 4 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=300&h=300&fit=crop" alt="AirPods 4" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple AirPods 4 with Active Noise Cancellation</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦350,000</span>
-                            </div>
-                            <button onclick="addToCart('AirPods 4')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- New Product 5 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300&h=300&fit=crop" alt="MacBook Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">Apple MacBook Pro 14" M4 16GB/512GB - Space Black</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦2,100,000</span>
-                            </div>
-                            <button onclick="addToCart('MacBook Pro 14 M4')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
-                                <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- New Product 6 -->
-                    <div class="product-card group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-gray-200 transition-all duration-300 hidden xl:block">
-                        <a href="#" class="block relative">
-                            <div class="relative aspect-square bg-gray-50 p-3">
-                                <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=300&h=300&fit=crop" alt="JBL Speaker" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                                <span class="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">New</span>
-                            </div>
-                        </a>
-                        <div class="p-3">
-                            <a href="#" class="text-sm font-medium text-gray-800 line-clamp-2 hover:text-attitude transition">JBL Charge 6 Portable Bluetooth Speaker</a>
-                            <div class="flex items-baseline gap-2 mt-2">
-                                <span class="text-lg font-bold text-attitude">₦125,000</span>
-                            </div>
-                            <button onclick="addToCart('JBL Charge 6')" class="w-full mt-3 bg-attitude text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-700 transition">
                                 <i class="fas fa-shopping-cart mr-1"></i>Add to Cart
                             </button>
                         </div>
@@ -1089,133 +672,10 @@
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section class="py-8 bg-gray-900">
-            <div class="container mx-auto max-w-7xl px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="text-center text-white">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-truck text-2xl text-yellow-400"></i>
-                        </div>
-                        <h3 class="font-bold mb-1">Fast Delivery</h3>
-                        <p class="text-gray-400 text-sm">Nationwide delivery within 1-3 days</p>
-                    </div>
-                    <div class="text-center text-white">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-shield-alt text-2xl text-green-400"></i>
-                        </div>
-                        <h3 class="font-bold mb-1">100% Original</h3>
-                        <p class="text-gray-400 text-sm">Genuine products with warranty</p>
-                    </div>
-                    <div class="text-center text-white">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-credit-card text-2xl text-blue-400"></i>
-                        </div>
-                        <h3 class="font-bold mb-1">Secure Payment</h3>
-                        <p class="text-gray-400 text-sm">Paystack, Flutterwave, Pay on Delivery</p>
-                    </div>
-                    <div class="text-center text-white">
-                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fas fa-headset text-2xl text-purple-400"></i>
-                        </div>
-                        <h3 class="font-bold mb-1">24/7 Support</h3>
-                        <p class="text-gray-400 text-sm">Dedicated customer service team</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="py-12 bg-white">
-            <div class="container mx-auto max-w-4xl px-4">
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900">Frequently Asked Questions</h2>
-                    <p class="text-gray-500 mt-1">Got questions? We've got answers</p>
-                </div>
-
-                <div class="space-y-3">
-                    <div class="border border-gray-200 rounded-xl overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800">What payment methods do you accept?</span>
-                            <i class="fas fa-chevron-down text-gray-400 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="px-4 pb-4 text-gray-600 text-sm">
-                                We accept Debit/Credit Cards (Visa, Mastercard, Verve), Bank Transfer, USSD, Pay on Delivery, and Buy Now Pay Later options on selected items. All transactions on Attitude Phones are secured and encrypted.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-200 rounded-xl overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800">Do you offer warranty on products?</span>
-                            <i class="fas fa-chevron-down text-gray-400 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="px-4 pb-4 text-gray-600 text-sm">
-                                Yes! All products sold at Attitude Phones come with official manufacturer warranties. We also offer a 7-day return policy on eligible items if you're not satisfied with your purchase.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-200 rounded-xl overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800">How long does delivery take?</span>
-                            <i class="fas fa-chevron-down text-gray-400 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="px-4 pb-4 text-gray-600 text-sm">
-                                Delivery within Lagos takes 1-2 business days. For other states across Nigeria, delivery takes 2-5 business days. Free delivery is available on orders above ₦50,000.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-200 rounded-xl overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800">Can I return a product?</span>
-                            <i class="fas fa-chevron-down text-gray-400 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="px-4 pb-4 text-gray-600 text-sm">
-                                Yes, we have a 7-day return policy on eligible items. Products must be in their original condition and packaging. Some exclusions apply - please see our full return policy for details.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-200 rounded-xl overflow-hidden">
-                        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition">
-                            <span class="font-semibold text-gray-800">Are your products original?</span>
-                            <i class="fas fa-chevron-down text-gray-400 accordion-icon"></i>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="px-4 pb-4 text-gray-600 text-sm">
-                                Absolutely! Every product sold by Attitude Phones is 100% original, sourced directly from manufacturers or their authorized distributors. Each product comes with an official warranty.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter Section -->
-        <section class="py-12 bg-attitude">
-            <div class="container mx-auto max-w-4xl px-4 text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-white">Stay Updated</h2>
-                <p class="text-white/80 mt-2">Subscribe to get exclusive deals and early access to new arrivals</p>
-                <form class="mt-6 max-w-md mx-auto" onsubmit="handleNewsletter(event)">
-                    <div class="flex rounded-full overflow-hidden bg-white">
-                        <input type="email" placeholder="Enter your email address" required class="flex-1 px-6 py-3 text-gray-800 outline-none">
-                        <button type="submit" class="bg-gray-900 text-white font-semibold px-6 py-3 hover:bg-gray-800 transition">
-                            Subscribe
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-12 pb-24 lg:pb-8">
+    <footer class="bg-gray-900 text-white pt-12 pb-24 lg:pb-8 mt-12">
         <div class="container mx-auto max-w-7xl px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <!-- About -->
@@ -1286,20 +746,6 @@
                 </div>
             </div>
 
-            <!-- Payment Methods -->
-            <div class="border-t border-gray-800 pt-8 mb-8">
-                <div class="flex flex-wrap items-center justify-center gap-4">
-                    <span class="text-gray-400 text-sm">We Accept:</span>
-                    <div class="flex gap-3">
-                        <span class="bg-white rounded px-3 py-1 text-gray-800 text-xs font-bold">Paystack</span>
-                        <span class="bg-white rounded px-3 py-1 text-gray-800 text-xs font-bold">Flutterwave</span>
-                        <span class="bg-white rounded px-3 py-1 text-gray-800 text-xs font-bold">Visa</span>
-                        <span class="bg-white rounded px-3 py-1 text-gray-800 text-xs font-bold">Mastercard</span>
-                        <span class="bg-white rounded px-3 py-1 text-gray-800 text-xs font-bold">Verve</span>
-                    </div>
-                </div>
-            </div>
-
             <!-- Copyright -->
             <div class="border-t border-gray-800 pt-6 text-center">
                 <p class="text-gray-500 text-sm">© 2024 Attitude Phones. All Rights Reserved. Made with <i class="fas fa-heart text-attitude"></i> in Nigeria</p>
@@ -1308,7 +754,7 @@
     </footer>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="mobile-bottom-nav fixed bottom-0 inset-x-0 bg-white z-50 lg:hidden">
+    <nav class="fixed bottom-0 inset-x-0 bg-white z-50 lg:hidden border-t border-gray-200 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
         <div class="flex">
             <a href="#" class="flex-1 flex flex-col items-center justify-center py-3 text-attitude">
                 <i class="fas fa-home text-lg"></i>
@@ -1318,7 +764,7 @@
                 <i class="fas fa-th-large text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Categories</span>
             </a>
-            <a href="#" class="flex-1 flex flex-col items-center justify-center py-3 text-gray-400 hover:text-gray-600 transition relative" onclick="toggleCart(event)">
+            <a href="#" class="flex-1 flex flex-col items-center justify-center py-3 text-gray-400 hover:text-gray-600 transition relative">
                 <i class="fas fa-shopping-cart text-lg"></i>
                 <span class="text-[10px] font-medium mt-1">Cart</span>
                 <span id="cart-count-bottom" class="absolute top-2 right-1/4 bg-attitude text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
@@ -1333,6 +779,12 @@
             </a>
         </div>
     </nav>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Item added to cart!</span>
+    </div>
 
     <script>
         // ============ HERO SLIDER ============
@@ -1358,43 +810,19 @@
             showSlide(currentSlide);
         }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        function goToSlide(index) {
-            showSlide(index);
-            resetSlideInterval();
-        }
-
         function startSlideInterval() {
             slideInterval = setInterval(nextSlide, 5000);
         }
 
-        function resetSlideInterval() {
-            clearInterval(slideInterval);
-            startSlideInterval();
-        }
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                clearInterval(slideInterval);
+                showSlide(i);
+                startSlideInterval();
+            });
+        });
 
         startSlideInterval();
-
-        // ============ MOBILE MENU ============
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const panel = document.getElementById('mobile-menu-panel');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => {
-                    panel.classList.remove('-translate-x-full');
-                }, 10);
-            } else {
-                panel.classList.add('-translate-x-full');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 300);
-            }
-        }
 
         // ============ CART FUNCTIONALITY ============
         let cartCount = 0;
@@ -1409,98 +837,19 @@
             document.getElementById('cart-count').textContent = cartCount;
             document.getElementById('cart-count-mobile').textContent = cartCount;
             document.getElementById('cart-count-bottom').textContent = cartCount;
-            
-            // Add bounce animation
-            const badges = document.querySelectorAll('#cart-count, #cart-count-mobile, #cart-count-bottom');
-            badges.forEach(badge => {
-                badge.classList.remove('cart-badge');
-                void badge.offsetWidth;
-                badge.classList.add('cart-badge');
-            });
-        }
-
-        function toggleCart(event) {
-            event.preventDefault();
-            if (cartCount === 0) {
-                showToast('Your cart is empty!', 'orange');
-            } else {
-                showToast(`You have ${cartCount} item(s) in cart`, 'blue');
-            }
         }
 
         // ============ TOAST NOTIFICATION ============
-        function showToast(message, color = 'green') {
+        function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toast-message');
-            
             toastMessage.textContent = message;
-            
-            // Set color
-            toast.className = 'toast px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 text-white';
-            if (color === 'orange') {
-                toast.classList.add('bg-orange-500');
-            } else if (color === 'blue') {
-                toast.classList.add('bg-blue-500');
-            } else {
-                toast.classList.add('bg-green-600');
-            }
             
             toast.classList.add('show');
             
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 2500);
-        }
-
-        // ============ WISHLIST ============
-        function toggleWishlist(event, button) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            const icon = button.querySelector('i');
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far', 'text-gray-400');
-                icon.classList.add('fas', 'text-attitude');
-                showToast('Added to wishlist!', 'blue');
-            } else {
-                icon.classList.remove('fas', 'text-attitude');
-                icon.classList.add('far', 'text-gray-400');
-                showToast('Removed from wishlist', 'orange');
-            }
-        }
-
-        // ============ ACCORDION ============
-        function toggleAccordion(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('.accordion-icon');
-            
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-                icon.classList.remove('rotate');
-            } else {
-                // Close all other accordions
-                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
-                document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotate'));
-                
-                content.classList.add('open');
-                icon.classList.add('rotate');
-            }
-        }
-
-        // ============ SEARCH ============
-        function handleSearch(event) {
-            event.preventDefault();
-            const query = document.getElementById('search-input').value.trim();
-            if (query) {
-                showToast(`Searching for "${query}"...`, 'blue');
-            }
-        }
-
-        // ============ NEWSLETTER ============
-        function handleNewsletter(event) {
-            event.preventDefault();
-            showToast('Thanks for subscribing! Check your email.', 'green');
-            event.target.reset();
         }
 
         // ============ FLASH SALE COUNTDOWN ============
@@ -1522,32 +871,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // ============ SMOOTH SCROLL ============
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && href.length > 1) {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        e.preventDefault();
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
-        // ============ PRODUCT IMAGE LAZY LOAD ============
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            if (!img.complete) {
-                img.style.opacity = '0';
-                img.style.transition = 'opacity 0.3s';
-                img.addEventListener('load', () => {
-                    img.style.opacity = '1';
-                });
-            }
-        });
     </script>
 </body>
 </html>
